@@ -85,7 +85,7 @@ function clear() {
 
 
 
-const ThirdPage = () => (
+const Calculator = () => (
   <>
 
   <Header/>
@@ -151,4 +151,4 @@ const ThirdPage = () => (
   </>
 )
 
-export default ThirdPage
+export default Calculator

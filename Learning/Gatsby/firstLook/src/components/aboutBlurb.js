@@ -23,26 +23,22 @@ const AboutBlurb = () => {
   `)
 
   return (
-    <div className="about-blurb">
+    <div className="about-blurb" >
       <div className="container">
         <div className="inner-blurb">
           <div className="content">
             <h3>The Ability to create</h3>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
+              I've just started the learning process as an Intern. Even tho, I haven't got
+              much knowledge about GatsByJS, I've started creating and exloring couple of things
+              on it. I'll keep on getting better and will be creating some good stuff in future.
             </p>
             <div className="btn-row">
-              <Link to="/work">View Series</Link>
+              <Link to="/work">View Story</Link>
             </div>
           </div>
           <div className="images">
-            <div className="top-right">
+            <div className="top-right" id="about-blurb">
               <Img fluid={data.fist.childImageSharp.fluid} />
             </div>
             <div className="bottom-left">

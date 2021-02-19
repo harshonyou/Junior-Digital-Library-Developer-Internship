@@ -5,23 +5,23 @@ import Img from 'gatsby-image'
 const Banner = () => {
     const data = useStaticQuery(graphql`
     query {
-      poppinShades: file(relativePath: { eq: "poppin-shades.png" }) {
+      poppinShades: file(relativePath: { eq: "pexels-henry-&-co-1793525.jpg" }) {
         childImageSharp {
-          fluid(maxWidth: 300) {
+          fluid(maxWidth: 1500) {
             ...GatsbyImageSharpFluid
           }
         }
       }
-      diamonds: file(relativePath: { eq: "diamonds.png" }) {
+      diamonds: file(relativePath: { eq: "wp3611744.jpg" }) {
         childImageSharp {
-          fluid(maxWidth: 300) {
+          fluid(maxWidth: 600) {
             ...GatsbyImageSharpFluid
           }
         }
       }
-      orange: file(relativePath: { eq: "sexy-orange.png" }) {
+      orange: file(relativePath: { eq: "318c9144d7f90a5688b56c7920abb24a.jpg" }) {
         childImageSharp {
-          fluid(maxWidth: 300) {
+          fluid(maxWidth: 600) {
             ...GatsbyImageSharpFluid
           }
         }
@@ -50,7 +50,7 @@ const Banner = () => {
                     <span>Scroll Down</span>
                 </div>
             </div>
-            <div className="fixed-misc">Visual Artist and Photographer</div>
+            <div className="fixed-misc">Junior Digital Library Developer</div>
         </div>
     )
 }

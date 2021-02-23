@@ -1,7 +1,6 @@
 import React from "react"
 import { Link } from "gatsby"
 
-
 const Header = () => (
   <header>
     <div className="container">
@@ -20,6 +19,5 @@ const Header = () => (
     </div>
   </header>
 )
-
 
 export default Header

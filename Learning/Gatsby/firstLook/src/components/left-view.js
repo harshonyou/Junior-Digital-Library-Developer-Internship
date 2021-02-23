@@ -23,13 +23,14 @@ const LeftView = () => {
           <div className="content">
             <h3>The Isolation Remains Calm Within</h3>
             <p>
-              I've just started the learning process as an Intern. Even tho, I
-              haven't got much knowledge about GatsByJS, I've started creating
-              and exloring couple of things on it. I'll keep on getting better
-              and will be creating some good stuff in future.
+            The covid-19 has bought some painful acts upon us.
+            Meanwhile, we had never been this close to ourselves ever before.
+            With alien situations, we had adopted ourselves to process various
+            things differently. Thus, we have seen it both, our angels and demons.
+            Now, it's just a matter of fact how we come out stronger.
             </p>
             <div className="btn-row">
-                <Link to="/work">View More</Link>
+                <Link to="/work">View More &#8594;</Link>
             </div>
           </div>
           <div className="images">

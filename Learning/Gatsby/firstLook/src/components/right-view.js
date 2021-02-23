@@ -30,13 +30,15 @@ const RightView = () => {
           <div className="content">
             <h3>The Legal Drug</h3>
             <p>
-              I've just started the learning process as an Intern. Even tho, I
-              haven't got much knowledge about GatsByJS, I've started creating
-              and exloring couple of things on it. I'll keep on getting better
-              and will be creating some good stuff in future.
+            From the very beginning, we have been told not to form any
+            sort of addiction, yet we are enslaved to coffee. We keep on
+            consuming it and till that extinct when our body receives more
+            coffee than water as a liquid intake. There is no way coffee is
+            any less addictive than any sort of drugs, but this one is like
+            a cute little one within the devils.
             </p>
             <div className="btn-row">
-                <Link to="/work">View More</Link>
+                <Link to="/work">View More &#8594;</Link>
             </div>
           </div>
 

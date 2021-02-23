@@ -2,14 +2,16 @@
     "posts": [
         {
             "title": "The Isolation Remains Calm Within",
-            "description": "Bla Bla Bla",
-            "image": "////..../",
+            "description": "The covid-19 has bought some painful acts upon us. Meanwhile, we had never been this close to ourselves ever before. With alien situations, we had adopted ourselves to process various things differently. Thus, we have seen it both, our angels and demons. Now, it's just a matter of fact how we come out stronger.",
+            "image": "nicholas-kwok-VBWWscZtszY-unsplash.jpg",
+            "target": "blog1",
             "type": true
         },
         {
-            "title": "The Isolation Remains Calm Within",
-            "description": "Bla Bla Bla",
-            "image": "////..../",
+            "title": "The Legal Drug",
+            "description": "From the very beginning, we have been told not to form any sort of addiction, yet we are enslaved to coffee. We keep on consuming it and till that extinct when our body receives more coffee than water as a liquid intake.  There is no way coffee is any less addictive than any sort of drugs, but this one is like a cute little one within the devils.",
+            "image": "06-taylor-hill-paris.jpg",
+            "target": "blog2",
             "type": false
         }
     ]

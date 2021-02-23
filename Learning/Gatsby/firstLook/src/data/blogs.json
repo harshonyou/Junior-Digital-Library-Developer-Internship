@@ -1,0 +1,16 @@
+{
+    "posts": [
+        {
+            "title": "The Isolation Remains Calm Within",
+            "description": "Bla Bla Bla",
+            "image": "////..../",
+            "type": true
+        },
+        {
+            "title": "The Isolation Remains Calm Within",
+            "description": "Bla Bla Bla",
+            "image": "////..../",
+            "type": false
+        }
+    ]
+}

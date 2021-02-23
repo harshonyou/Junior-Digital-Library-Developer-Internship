@@ -49,7 +49,7 @@ const Banner = () => {
           </div>
         </div>
         <div className="scroll">
-          <span>Scroll Down</span>
+          <span>Scroll Down &#8595;</span>
         </div>
       </div>
       <div className="fixed-misc">Junior Digital Library Developer</div>

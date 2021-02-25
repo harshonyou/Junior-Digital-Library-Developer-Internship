@@ -17,7 +17,7 @@ const BlogPage = () => {
     }, [])
 
     const { data, loading } = useFetch(
-        `https://jsonplaceholder.typicode.com/posts/1`
+        `https://jsonplaceholder.typicode.com/posts/${state}`
       )
 
     //<div>{!data ? 'loading...' : data}</div>

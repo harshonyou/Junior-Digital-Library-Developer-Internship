@@ -12,13 +12,12 @@ const BlogPage = () => {
 
     useEffect(() => {
         let link = window.location.href.split('/')
-        let path = window.location.pathname
-        let number = link[link.length-1].replace(path.substring(1)+"#", "")
+        let number = link[link.length-1].replace("#", "")
         setstate(number)
     }, [])
 
     const { data, loading } = useFetch(
-        `https://jsonplaceholder.typicode.com/posts/${state}`
+        `https://jsonplaceholder.typicode.com/posts/1`
       )
 
     //<div>{!data ? 'loading...' : data}</div>

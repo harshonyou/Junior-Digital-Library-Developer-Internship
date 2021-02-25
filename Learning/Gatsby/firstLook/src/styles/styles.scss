@@ -453,28 +453,51 @@ header {
 footer{
     height: 80px;
     width: 100%;
-    position: absolute;
-    z-index: 10;
+    position: relative;
     background-color: $black;
     .inner-footer{
         display: flex;
         align-items: center;
         justify-content: space-between;
         height: 80px;
-        p{
-            font-size: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 15px;
-            font-weight: 700;
-            color: $white;
-            position: absolute;
+        .messgae{
             width: 100%;
-            left: 0;
-            top: 50%;
-            transform: translateY(-50%);
             text-align: center;
-            mix-blend-mode: difference;
+            position: absolute;
+            left: 0;
+            text-transform: capitalize;
+            z-index: 8;
+            top: 30%;
+        }
+        .logo {
             z-index: 9;
+            a {
+                font-weight: 700;
+                text-decoration: none;
+                letter-spacing: 1.5px;
+                color: $black;
+                @media (max-width: 1540px) {
+                    padding-left: 50px;
+                }
+            }
+        }
+        .navigation {
+            z-index: 9;
+            width: 100%;
+            text-align: right;
+            nav {
+                a {
+                    margin: 20px;
+                    text-decoration: none;
+                    letter-spacing: 1.75px;
+                    text-transform: uppercase;
+                    font-size: 0.75rem;
+                    color: $black;
+                    &:last-child{
+                        margin-right: 0px;
+                    }
+                }
+            }
         }
     }
 

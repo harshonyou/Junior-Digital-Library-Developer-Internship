@@ -3,8 +3,8 @@ import { useFetch } from "../components/hooks/useFetch"
 
 import "../styles/hooks.scss"
 
-const Hooks = () => {
-  const [state, setstate] = useState(undefined) //J
+const BlogPages = () => {
+  const [state, setstate] = useState(()=> null)
 
   useEffect(() => {
     setstate(JSON.parse(localStorage.getItem("count")))
@@ -38,4 +38,4 @@ const Hooks = () => {
   )
 }
 
-export default Hooks
+export default BlogPages

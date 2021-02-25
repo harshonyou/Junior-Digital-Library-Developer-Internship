@@ -6,7 +6,7 @@ import "../styles/hooks.scss"
 
 const Hooks = () => {
 
-    const [state, setstate] = useState(undefined) //()=> JSON.parse(localStorage.getItem("count"))
+    const [state, setstate] = useState(()=> null) //()=> JSON.parse(localStorage.getItem("count"))
 
     useEffect(() => {
         setstate(JSON.parse(localStorage.getItem("count")))

@@ -1,6 +1,7 @@
 import React from "react"
 
 import Header from "../components/core/header"
+import Seo from "../components/core/seo"
 import Preview from "../components/preview"
 import LeftView from "../components/left-view"
 import RightView from "../components/right-view"
@@ -13,6 +14,7 @@ import "../styles/blogs.scss"
 const Blogs = () => (
   <>
     <Header />
+    <Seo title="Blogs" />
     <Preview />
     <LeftView />
     <RightView />

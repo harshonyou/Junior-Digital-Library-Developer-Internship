@@ -38,7 +38,7 @@ const RightView = () => {
             a cute little one within the devils.
             </p>
             <div className="btn-row">
-                <Link to="/work">View More &#8594;</Link>
+                <Link to="/blogPage#2">View More &#8594;</Link>
             </div>
           </div>
 

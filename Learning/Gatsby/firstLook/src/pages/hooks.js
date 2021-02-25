@@ -12,7 +12,7 @@ const Hooks = () => {
 
 
 
-    const {data, loading} = useTextFetch(`http://numbersapi.com/${state}/trivia`)
+    const {data} = useTextFetch(`http://numbersapi.com/${state}/trivia`)
 
     useEffect(() => {
         localStorage.setItem("count", JSON.stringify(state));

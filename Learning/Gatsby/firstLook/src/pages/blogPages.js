@@ -4,10 +4,11 @@ import { useFetch } from "../components/hooks/useFetch"
 import "../styles/hooks.scss"
 
 const Hooks = () => {
-  const [state, setstate] = useState(() =>
-    JSON.parse(localStorage.getItem("count"))
-  )
+  const [state, setstate] = useState(undefined) //J
 
+  useEffect(() => {
+    setstate(JSON.parse(localStorage.getItem("count")))
+  }, [])
 
   useEffect(() => {
     localStorage.setItem("count", JSON.stringify(state))

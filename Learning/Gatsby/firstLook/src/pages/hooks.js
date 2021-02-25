@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react"
-import { useTextFetch } from "../components/Hooks/useTextFetch"
-import { useForm } from "../components/Hooks/useForm"
+import { useTextFetch } from "../components/hooks/useTextFetch"
+import { useForm } from "../components/hooks/useForm"
 
 import "../styles/hooks.scss"
 

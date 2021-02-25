@@ -1,9 +1,10 @@
 import React from "react"
 import { Link } from "gatsby"
 
-import Header from "../components/header"
+import Header from "../components/core/header"
 import Calc from "../components/calc"
-import Footer from "../components/footer"
+import Calcu from "../components/calculator"
+import Footer from "../components/core/footer"
 
 import "../styles/layout.css"
 import "../styles/styles.scss"
@@ -11,7 +12,7 @@ import "../styles/styles.scss"
 const Calculator = () => (
   <>
     <Header />
-    <Calc />
+    <Calcu />
     <Footer />
   </>
 )

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { useFetch } from "../components/Hooks/useFetch"
+import { useFetch } from "../components/hooks/useFetch"
 
 import "../styles/hooks.scss"
 

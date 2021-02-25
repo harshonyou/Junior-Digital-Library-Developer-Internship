@@ -1,11 +1,11 @@
 import React from "react"
 import { Link } from "gatsby"
 
-import Header from "../components/header"
+import Header from "../components/core/header"
 import Banner from "../components/banner"
-import Image from "../components/image"
+import Image from "../components/core/image"
 import AboutBlurb from "../components/aboutBlurb"
-import Footer from "../components/footer"
+import Footer from "../components/core/footer"
 
 import "../styles/styles.scss"
 

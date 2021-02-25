@@ -8,6 +8,7 @@ const Hooks = () => {
     JSON.parse(localStorage.getItem("count"))
   )
 
+
   useEffect(() => {
     localStorage.setItem("count", JSON.stringify(state))
   }, [state])

@@ -10,7 +10,7 @@ const Calculator = () => {
     const [nextValue, setNextValue] = useState("0")
     const [op, setOp] = useState(null)
 
-    useEffect(() => {}, [op, nextValue, prevValue]);
+    // useEffect(() => {}, [op, nextValue, prevValue]);
 
     const CalculatorOperations = {
         "/": (firstValue, secondValue) => firstValue / secondValue,

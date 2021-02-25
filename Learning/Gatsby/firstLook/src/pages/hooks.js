@@ -10,15 +10,15 @@ const Hooks = () => {
 
     const [toggle, settoggle] = useState(()=>(true))
 
-    useEffect(() => {
-        console.log('changed')
-    }, [toggle])
+
+
+    const {data, loading} = useTextFetch(`http://numbersapi.com/${state}/trivia`)
 
     useEffect(() => {
         localStorage.setItem("count", JSON.stringify(state));
     }, [state])
 
-    const {data, loading} = useTextFetch(`http://numbersapi.com/${state}/trivia`)
+
 
     const [value, setValue] = useForm({email: "", password: ""})
 
@@ -29,7 +29,7 @@ const Hooks = () => {
 
     return (
         <>
-          <div>{!data ? 'loading...' : data}</div>
+          <div>{data ? data :'loading...'  }</div>
           <div>
           <p>{toggle && "Im kinda shy"}</p>
           </div>

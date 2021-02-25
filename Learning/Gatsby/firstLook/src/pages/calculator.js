@@ -2,7 +2,6 @@ import React from "react"
 import { Link } from "gatsby"
 
 import Header from "../components/core/header"
-import Calc from "../components/calc"
 import Calcu from "../components/calculator"
 import Footer from "../components/core/footer"
 

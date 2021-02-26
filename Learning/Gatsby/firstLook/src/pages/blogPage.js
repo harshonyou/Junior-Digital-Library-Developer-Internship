@@ -3,6 +3,7 @@ import { useFetch } from "../components/hooks/useFetch"
 
 import Header from "../components/core/header"
 import Footer from "../components/core/footer"
+import Template from "../components/blogTemplate"
 
 import "../styles/hooks.scss"
 
@@ -12,7 +13,8 @@ const BlogPage = () => {
 
     useEffect(() => {
         let link = window.location.href.split('/')
-        let number = link[link.length-1].replace("#", "")
+        let number = link[link.length-1].substr(1)
+        console.log(number)
         setstate(number)
     }, [])
 
@@ -24,12 +26,14 @@ const BlogPage = () => {
     return (
         <>
         <Header />
-        <div className="fourofour">
+        {/* <div className="fourofour" style={{visibility: loading ? "hidden" : "visible"}}>
             <div>Blog ID: {data.id}</div>
             <div>Title: {data.title}</div>
             <div>Body: {data.body}</div>
             <div>User ID: {data.userId}</div>
-        </div>
+        </div> */}
+
+        <Template />
         <Footer />
         </>
     )

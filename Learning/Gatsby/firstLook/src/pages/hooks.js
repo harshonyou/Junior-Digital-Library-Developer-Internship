@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react"
 import { useTextFetch } from "../components/hooks/useTextFetch"
 import { useForm } from "../components/hooks/useForm"
+import { Link } from "gatsby"
 
 import "../styles/hooks.scss"
 
@@ -48,6 +49,8 @@ const Hooks = () => {
             <input name="email" type="email" placeholder="email" value={value.email} onChange={setValue}/>
             <input name="password" type="password" placeholder="password" value={value.password} onChange={setValue}/>
         </div>
+
+        <Link to="/somedata/" component="1">some data</Link>
         </>
       )
 }

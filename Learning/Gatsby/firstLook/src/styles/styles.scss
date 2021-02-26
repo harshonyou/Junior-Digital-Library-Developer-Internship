@@ -502,3 +502,102 @@ footer{
     }
 
 }
+
+
+//Blog Page
+
+.blogpage{
+    // display: flex;
+    // align-items: center;
+    background-color: $white;
+    position: relative;
+    height: 100vh;
+    // margin-top: 100px;
+    .row{
+        position: relative;
+        height: 10vh;
+        .main-text{
+            font-size: 5.8rem;
+            text-transform: uppercase;
+            letter-spacing: 42px;
+            font-weight: 700;
+            color: $white;
+            position: absolute;
+            width: 100%;
+            left: 0;
+            top: 225%;
+            transform: translateY(-50%);
+            text-align: center;
+            mix-blend-mode: difference;
+            z-index: 9;
+            @media (max-width: 1440px) {
+                font-size: 4.4rem;
+                letter-spacing: 36px;
+            }
+            @media (max-width: 1280px) {
+                font-size: 3.5rem;
+                letter-spacing: 26px;
+            }
+            @media (max-width: 976px) {
+                font-size: 2rem;
+                letter-spacing: 20px;
+            }
+        }
+
+        .main-image{
+            // object-fit: contain;
+            // max-height: 10px;
+            width: 100%;
+            height: 500%;
+            margin: 100px auto;
+            // @media (max-width: 1440px) {
+            //     width: 436px;
+            // }
+            // @media (max-width: 1280px) {
+            //     width: 336px;
+            // }
+            // @media (max-width: 976px) {
+            //     width: 236px;
+            // }
+        }
+
+        .side-image{
+
+            @media (max-width: 1440px) {
+
+            }
+            @media (max-width: 1280px) {
+
+            }
+            @media (max-width: 976px) {
+
+            }
+            &.left {
+
+                @media (max-width: 1440px) {
+
+                }
+                @media (max-width: 1280px) {
+
+                }
+                @media (max-width: 976px) {
+
+                }
+            }
+            &.right {
+
+                @media (max-width: 1440px) {
+
+                }
+                @media (max-width: 1280px) {
+
+                }
+                @media (max-width: 976px) {
+
+                }
+            }
+        }
+    }
+
+
+}

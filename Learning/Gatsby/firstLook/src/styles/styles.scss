@@ -515,7 +515,9 @@ footer{
     // margin-top: 100px;
     .row{
         position: relative;
-        height: 10vh;
+        height: 20vh;
+        margin-bottom: 10px;
+        background-color: red;
         .main-text{
             font-size: 5.8rem;
             text-transform: uppercase;
@@ -548,8 +550,8 @@ footer{
             // object-fit: contain;
             // max-height: 10px;
             width: 100%;
-            height: 500%;
-            margin: 100px auto;
+            height: 200%;
+            margin: 100px auto 0 auto;
             // @media (max-width: 1440px) {
             //     width: 436px;
             // }
@@ -560,44 +562,56 @@ footer{
             //     width: 236px;
             // }
         }
+        .arrow {
+            top: 10%;
+            position: absolute;
+            padding: 1rem; /* Arrow size */
+                    box-shadow: 1px -1px 0 1px plum inset;
+            -webkit-box-shadow: 2px -2px plum inset;
+            border: solid transparent;
+            border-width: 0 0 2rem 2rem;
+            transition: 0.2s;
 
-        .side-image{
-
-            @media (max-width: 1440px) {
-
+            &:hover {
+                box-shadow: 2px -2px 0 2px orchid inset;
+            -webkit-box-shadow: 4px -4px orchid inset;
             }
-            @media (max-width: 1280px) {
-
+            &.arrow-right {
+                transform:rotate(225deg);
+                right: 10px;
+                // border-width: 0 0 0.1rem 0.1rem;
+                // width: 10%;
             }
-            @media (max-width: 976px) {
-
-            }
-            &.left {
-
-                @media (max-width: 1440px) {
-
-                }
-                @media (max-width: 1280px) {
-
-                }
-                @media (max-width: 976px) {
-
-                }
-            }
-            &.right {
-
-                @media (max-width: 1440px) {
-
-                }
-                @media (max-width: 1280px) {
-
-                }
-                @media (max-width: 976px) {
-
-                }
+            &.arrow-left  {
+                transform:rotate(45deg);
+                left: 10px;
             }
         }
-    }
 
+        .author {
+            position: absolute;
+            color: $white;
+            top: 350px;
+            width: 55%;
+            text-align: center;
+            mix-blend-mode: difference;
+            //bottom: 1px;
+        }
+
+    }
+    .content{
+        position: relative;
+        color: $off-white;
+        width: 60%;
+        text-align: center;
+        margin: auto;
+        // margin-top: 27%;
+        border-top: 2px solid $off-white;
+        border-bottom: 5px solid $off-white;
+
+        .inner-content{
+            margin: 20px 0px 5px 0px;
+        }
+    }
 
 }

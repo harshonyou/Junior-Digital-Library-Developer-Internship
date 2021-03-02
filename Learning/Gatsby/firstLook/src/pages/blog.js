@@ -10,9 +10,10 @@ import { useFetch } from "../components/hooks/useFetch"
 
 import "../styles/hooks.scss"
 
-const SomeData = () => {
+const SomeData = (props) => {
     //<div>{!data ? 'loading...' : data}</div>
-
+    console.log(props)
+    console.log("THIS IS PROPS FROM BLOG")
     //
     const [state, setstate] = useState(0)
 
@@ -26,11 +27,8 @@ const SomeData = () => {
 
 
     useEffect(() => {
-        let link = window.location.href.split('/')
-        let number = link[link.length-1].substr(1)
-        console.log(number)
-        if(!isNaN(number))
-            setstate(number)
+        if(!isNaN(props.location.hash.substr(1)))
+            setstate(props.location.hash.substr(1))
 
     }, [window.location.href])
 

@@ -18,6 +18,7 @@ const BlogTemplate = (props) => {
       }
     }
   `)
+  console.log("NICE")
   console.log(props)
   return (
     <div className="blogpage">

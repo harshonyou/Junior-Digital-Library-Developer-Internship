@@ -17,15 +17,6 @@ const SomeData = (props) => {
     //
     const [state, setstate] = useState(0)
 
-    // useEffect(() => {
-    //     let link = window.location.href.split('/')
-    //     let number = link[link.length-1].substr(1)
-    //     console.log(number)
-    //     if(isNaN(number))
-    //         setstate(number)
-    // }, [])
-
-
     useEffect(() => {
         if(!isNaN(props.location.hash.substr(1)))
             setstate(props.location.hash.substr(1))

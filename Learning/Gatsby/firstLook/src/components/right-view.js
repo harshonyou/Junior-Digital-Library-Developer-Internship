@@ -40,7 +40,7 @@ const RightView = () => {
             a cute little one within the devils.
             </p>
             <div className="btn-row">
-                <Link to="/blog/#1">View More [Dynamic]&#8594;</Link>
+                <Link to="/blog/1">View More &#8594;</Link>
             </div>
           </div>
 

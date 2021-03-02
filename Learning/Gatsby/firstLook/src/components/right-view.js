@@ -1,3 +1,5 @@
+//This one is calling Dynamic one
+
 import React from "react"
 import { useStaticQuery, graphql, Link } from "gatsby"
 import Img from "gatsby-image"
@@ -38,7 +40,7 @@ const RightView = () => {
             a cute little one within the devils.
             </p>
             <div className="btn-row">
-                <Link to="/blogPage#2">View More &#8594;</Link>
+                <Link to="/blog/1">View More &#8594;</Link>
             </div>
           </div>
 

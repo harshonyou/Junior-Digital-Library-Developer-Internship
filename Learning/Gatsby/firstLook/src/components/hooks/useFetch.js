@@ -4,7 +4,7 @@ export const useFetch = url => {
   const [state, setstate] = useState(()=>({ data: {'userId': null, 'id': null, 'title': null, 'body': null}, loading: true }))
     // console.log("Me too")
   useEffect(() => {
-    setstate(pre => ({ data: pre.data, loading: true }))
+    //  setstate(pre => ({ data: pre.data, loading: true }))
     fetch(url)
       .then(x => x.json())
       .then(y => {

@@ -1,3 +1,5 @@
+// This one is calling static page
+
 import React from "react"
 import { useStaticQuery, graphql, Link } from "gatsby"
 import Img from "gatsby-image"
@@ -30,7 +32,7 @@ const LeftView = () => {
             Now, it's just a matter of fact how we come out stronger.
             </p>
             <div className="btn-row">
-                <Link to="/blogPage#1">View More &#8594;</Link>
+                <Link to="/blog/1">View More &#8594;</Link>
             </div>
           </div>
           <div className="images">

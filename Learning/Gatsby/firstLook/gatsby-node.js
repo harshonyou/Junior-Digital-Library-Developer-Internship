@@ -13,7 +13,8 @@ const callApi = () => axios.get(`https://jsonplaceholder.typicode.com/posts/`)
 
 // This function is called within the `createPages` function and will return the JSON
 const fetchPosts = async () => {
-    return await callApi()
+    const response = await callApi()
+    return response.data
 };
 
 // just a function to transform any string to a URL friendly string
@@ -44,12 +45,9 @@ exports.createPages = async ({ actions: { createPage } }) => {
 
             // We create an array with possible URL's for each post
             const postPaths = [
-                "/posts/" + slugify(post.id) + "/" + slugify(post.title),
-                "/posts/" + slugify(post.id)
+                "/post/" + slugify(post.id) + "/" + slugify(post.title),
+                "/post/" + slugify(post.id)
             ]
-
-            console.log('postPaths');
-            console.log(postPaths);
 
             // Then we loop through the possible URL's and create the pages. 
             // createPage takes 3 arugments:

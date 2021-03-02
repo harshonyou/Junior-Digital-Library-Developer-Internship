@@ -1,3 +1,6 @@
+// This is the Template for the blog page thus it is just plain static even without props
+
+
 import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import Img from "gatsby-image"
@@ -20,7 +23,7 @@ const BlogTemplate = () => {
   return (
     <div className="blogpage">
       <div className="container">
-        <div className="row">
+        <div className="row" id="1">
           <div className="main-image">
             <Img fluid={data.poppinShades.childImageSharp.fluid}
             style={{maxHeight: '100%'}}/>

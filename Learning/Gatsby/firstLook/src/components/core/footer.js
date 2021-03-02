@@ -9,7 +9,7 @@ const Footer = () => (
           <Link to="/">HARSH</Link>
         </div>
         <div className="messgae">
-          <p>Copyright © 2021</p>
+          <p>Copyright &copy; 2021</p>
         </div>
         <div className="navigation">
           <nav>

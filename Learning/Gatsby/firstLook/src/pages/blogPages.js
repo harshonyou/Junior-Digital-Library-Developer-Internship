@@ -1,3 +1,5 @@
+//This one was the early trial of the blog page and will be removed in future.
+
 import React, { useState, useEffect } from "react"
 import { useFetch } from "../components/hooks/useFetch"
 

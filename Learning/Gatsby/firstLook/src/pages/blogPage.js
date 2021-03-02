@@ -1,3 +1,5 @@
+// Rendering Static Blog Page
+
 import React, {useState, useEffect} from "react"
 import { useFetch } from "../components/hooks/useFetch"
 
@@ -7,7 +9,7 @@ import Template from "../components/blogTemplate"
 
 import "../styles/hooks.scss"
 
-const BlogPage = () => {
+const Blog = () => {
 
     const [state, setstate] = useState(()=> 0)
 
@@ -39,4 +41,4 @@ const BlogPage = () => {
     )
 }
 
-export default BlogPage
+export default Blog

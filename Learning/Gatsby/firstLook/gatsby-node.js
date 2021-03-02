@@ -5,17 +5,17 @@
  */
 
 
-// I use axios to fetch the JSON
-const axios = require('axios')
+// // I use axios to fetch the JSON
+// const axios = require('axios')
 
-// Just a basic JS function for colling the API
-const callApi = () => axios.get(`https://jsonplaceholder.typicode.com/posts/`)
+// // Just a basic JS function for colling the API
+// const callApi = () => axios.get(`https://jsonplaceholder.typicode.com/posts/`)
 
-// This function is called within the `createPages` function and will return the JSON
-const fetchPosts = async () => {
-    const response = await callApi()
-    return response.data
-};
+// // This function is called within the `createPages` function and will return the JSON
+// const fetchPosts = async () => {
+//     const response = await callApi()
+//     return response.data
+// };
 
 // just a function to transform any string to a URL friendly string
 function slugify(string, spacer = '-') {
@@ -36,32 +36,54 @@ function slugify(string, spacer = '-') {
 exports.createPages = async ({ actions: { createPage } }) => {
 
     // First we need to call the API and get the posts
-    const posts = await fetchPosts()
+    // const posts = await fetchPosts()
 
-    if (posts.length > 0) {
+    // if (posts.length > 0) {
 
-        // We map through the posts
-        posts.map((post) => {
+    //     // We map through the posts
+    //     posts.map((post) => {
 
-            // We create an array with possible URL's for each post
-            const postPaths = [
-                "/post/" + slugify(post.id) + "/" + slugify(post.title),
-                "/post/" + slugify(post.id)
-            ]
+    //         // We create an array with possible URL's for each post
+    //         const postPaths = [
+    //             "/post/" + slugify(post.id) + "/" + slugify(post.title),
+    //             "/post/" + slugify(post.id)
+    //         ]
 
-            // Then we loop through the possible URL's and create the pages. 
-            // createPage takes 3 arugments:
-            // 1 - url (path)
-            // 2 - a template
-            // 3 - the post itself which you can you use on the template
-            postPaths.map(postPath => {
-                createPage({
-                    path: postPath,
-                    component: require.resolve('./src/templates/postTemplate.js'),
-                    context: { post }
-                })
-            })
+    //         // Then we loop through the possible URL's and create the pages.
+    //         // createPage takes 3 arugments:
+    //         // 1 - url (path)
+    //         // 2 - a template
+    //         // 3 - the post itself which you can you use on the template
+    //         postPaths.map(postPath => {
+    //             createPage({
+    //                 path: postPath,
+    //                 component: require.resolve('./src/templates/blogData.js'),
+    //                 context: { post }
+    //             })
+    //         })
 
+    //     })
+    // }
+
+    const {target, posts}  = require("./src/data/blogs.json");
+    posts.forEach( (post) => {
+        //console.log(post)
+        let postPath = "/"+target+"/"+post.target
+        createPage({
+            path: postPath,
+            component: require.resolve('./src/templates/blogTemplate.js'),
+            context: { id: post.target,
+                title: post.caption,
+                userId: post.author,
+                body: post.description,
+                target: target,
+                range: [1, 2],
+                image: post.image,
+
+             }
         })
-    }
+    } )
+
+
+
 }

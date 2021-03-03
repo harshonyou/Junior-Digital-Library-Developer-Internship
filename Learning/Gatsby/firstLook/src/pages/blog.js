@@ -21,7 +21,7 @@ const SomeData = (props) => {
         if(!isNaN(props.location.hash.substr(1)))
             setstate(props.location.hash.substr(1))
 
-    }, [window.location.href])
+    }, [props.location.href])
 
     const { data } = useFetch(
         `https://jsonplaceholder.typicode.com/posts/${state}`

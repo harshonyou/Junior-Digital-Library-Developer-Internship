@@ -46,7 +46,7 @@ module.exports.createBlog = async (event) => {
                     statusCode: 200,
                     body: JSON.stringify(
                         {
-                            message: `Sucessfully submitted candidate with email ${email}`,
+                            message: `Sucessfully submitted`,
                             blogLink: res.PK,
                         },
                         null,
@@ -60,7 +60,7 @@ module.exports.createBlog = async (event) => {
                     statusCode: 200,
                     body: JSON.stringify(
                         {
-                            message: `Unable to submit candidate with email ${email}`,
+                            message: `Unable to submit`,
                         },
                         null,
                         2

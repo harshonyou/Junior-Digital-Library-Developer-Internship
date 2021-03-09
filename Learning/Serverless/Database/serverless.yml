@@ -8,35 +8,80 @@ frameworkVersion: '2'
 provider:
   name: aws
   runtime: nodejs12.x
+  stage: dev
   lambdaHashingVersion: 20201221
+  # environment:
+  #   CANDIDATE_TABLE: ${self:service}-${opt:stage, self:provider.stage}
+  #   CANDIDATE_EMAIL_TABLE: "candidate-email-${opt:stage, self:provider.stage}"
+  # iamRoleStatements:
+  #   - Effect: Allow
+  #     Action:
+  #       - dynamodb:Query
+  #       - dynamodb:Scan
+  #       - dynamodb:GetItem
+  #       - dynamodb:PutItem
+  #       - dynamodb:DescribeItem
+  #       - dynamodb:DeleteItem
+  #     Resource: "*"
+
+# resources:
+#   Resources:
+#     CandidatesDynamoDbTable:
+#       Type: 'AWS::DynamoDB::Table'
+#       DeletionPolicy: Retain
+#       Properties:
+#         AttributeDefinitions:
+#           -
+#             AttributeName: "id"
+#             AttributeType: "S"
+#         KeySchema:
+#           -
+#             AttributeName: "id"
+#             KeyType: "HASH"
+#         ProvisionedThroughput:
+#           ReadCapacityUnits: 1
+#           WriteCapacityUnits: 1
+#         StreamSpecification:
+#           StreamViewType: "NEW_AND_OLD_IMAGES"
+#         TableName: ${self:provider.environment.CANDIDATE_TABLE}
 
 functions:
   hello:
     handler: handler.hello
+    memorySize: 128
+    description: Homepage of API.
     events:
      - httpApi:
          path: /
          method: get
+  # candidateSubmission:
+  #   handler: api/candidate.submit
+  #   memorySize: 128
+  #   description: Submit candidate information and starts interview process.
+  #   events:
+  #     - http:
+  #         path: candidates
+  #         method: post
   createBlog:
-    handler: handler.createBlog
+    handler: blog/requests.createBlog
     events:
      - httpApi:
          path: /blog/create
          method: post
   deleteBlog:
-      handler: handler.deleteBlog
+      handler: blog/requests.deleteBlog
       events:
       - httpApi:
           path: /blog/delete
           method: delete
   updateBlog:
-    handler: handler.updateBlog
+    handler: blog/requests.updateBlog
     events:
      - httpApi:
          path: /blog/update
          method: patch
   viewBlog:
-      handler: handler.viewBlog
+      handler: blog/requests.viewBlog
       events:
       - httpApi:
           path: /blog/view

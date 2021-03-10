@@ -106,3 +106,16 @@ module.exports.createPost = (event, context, callback) => {
   })
   .catch((err) => response(null, response(err.statusCode, err)));
 };
+
+
+module.exports.getAllPosts = (event, context, callback) => {
+  return db
+    .scan({
+      TableName: blogsTable
+    })
+    .promise()
+    .then((res) => {
+      callback(null, response(200, res.Items.sort()));
+    })
+    .catch((err) => callback(null, response(err.statusCode, err)));
+};

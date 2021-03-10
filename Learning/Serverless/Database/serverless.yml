@@ -67,6 +67,12 @@ functions:
     - http:
         path: /post
         method: post
+  getAllPosts:
+    handler: handler.getAllPosts
+    events:
+    - http:
+        path: /posts
+        method: get
   # candidateSubmission:
   #   handler: api/candidate.submit
   #   memorySize: 128

@@ -50,7 +50,9 @@ module.exports.createPost = (event, context, callback) => {
     !request.title ||
     request.title.trim() === '' ||
     !request.categories ||
-    typeof request.categories != "object"
+    typeof request.categories != "object" ||
+    !request.meta ||
+    typeof request.meta != "object"
   ) {
     return callback(
       null,
@@ -77,9 +79,30 @@ module.exports.createPost = (event, context, callback) => {
       .catch((err) => response(null, response(err.statusCode, err)))
   })
 
-  callback(null, response(201, {
-    message: 'Categories Created Successfully!',
-    request: request
-  }));
+  const blog = {
+    PK: "Blog#"+slugify(request.title),
+    SK: "Context#1"+uuidv4(),
+    title: request.title,
+    image: request.meta.image ? request.meta.image : undefined,
+    author: request.meta.author ? request.meta.author : undefined,
+    caption: request.meta.caption ? request.meta.caption : undefined,
+    description: request.meta.description ? request.meta.description : undefined,
+    body: request.meta.body ? request.meta.body : undefined,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  }
 
+  return db
+  .put({
+    TableName: blogsTable,
+    Item: blog
+  })
+  .promise()
+  .then(() => {
+    callback(null, response(201, {
+      message: 'Blog Created Successfully!',
+      request: request
+    }));
+  })
+  .catch((err) => response(null, response(err.statusCode, err)));
 };

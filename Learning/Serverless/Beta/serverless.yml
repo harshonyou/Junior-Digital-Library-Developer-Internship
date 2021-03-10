@@ -1,0 +1,115 @@
+org: harshmohan813
+app: beta
+service: beta
+frameworkVersion: '2'
+
+custom:
+  settings:
+    POSTS_TABLE: posts
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  lambdaHashingVersion: 20201221
+  region: us-east-1
+  environment: ${self:custom.settings}
+  iamRoleStatements:
+   - Effect: "Allow"
+     Action:
+        - dynamodb:DescribeTable
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+     Resource:
+      - "arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.settings.POSTS_TABLE}"
+
+functions:
+  createPost:
+    handler: handler.createPost
+    events:
+    - http:
+        path: /post
+        method: post
+  getAllPosts:
+    handler: handler.getAllPosts
+    events:
+    - http:
+        path: /posts
+        method: get
+  getPosts:
+    handler: handler.getPosts
+    events:
+    - http:
+        path: /posts/{number}
+        method: get
+  getPost:
+    handler: handler.getPost
+    events:
+    - http:
+        path: /post/{id}
+        method: get
+  updatePost:
+    handler: handler.updatePost
+    events:
+    - http:
+        path: /post/{id}
+        method: put
+  deletePost:
+    handler: handler.deletePost
+    events:
+    - http:
+        path: /post/{id}
+        method: delete
+        # request:
+        #   schema:
+        #     application/json: {
+        #         "definitions": {},
+        #         "$schema": "http://json-schema.org/draft-04/schema#",
+        #         "type": "object",
+        #         "title": "Create Collection Schema",
+        #         "required": ["PK", "SK"],
+        #         "properties": {
+        #           "PK": { "type": "string" },
+        #           "SK": { "type": "string" },
+        #           "Metadata": { "type": "object" },
+        #           "Sub_Collection": { "type": "string" }
+        #         }
+        #     }
+
+# resources:
+#   Resources:
+#     POSTS_TABLE:
+#       Type: AWS::DynamoDB::Table
+#       Properties:
+#         AttributeDefinitions:
+#         - AttributeName: PK
+#           AttributeType: "S"
+#         - AttributeName: SK
+#           AttributeType: "S"
+#         KeySchema:
+#         - AttributeName: PK
+#           KeyType: HASH
+#         - AttributeName: SK
+#           KeyType: RANGE
+#         ProvisionedThroughput:
+#           ReadCapacityUnits: 1
+#           WriteCapacityUnits: 1
+#         TableName: ${self:custom.settings.POSTS_TABLE}
+
+resources:
+  Resources:
+    PostsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        AttributeDefinitions:
+        - AttributeName: "id"
+          AttributeType: "S"
+        KeySchema:
+        - AttributeName: "id"
+          KeyType: "HASH"
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:custom.settings.POSTS_TABLE}

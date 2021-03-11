@@ -2,6 +2,7 @@ service: blogAPI
 
 app: database-app
 org: harshmohan813
+# stage: dev
 
 frameworkVersion: '2'
 
@@ -73,6 +74,24 @@ functions:
     - http:
         path: /posts
         method: get
+  getPosts:
+    handler: handler.getPosts
+    events:
+    - http:
+        path: /posts/{number}
+        method: get
+  getPost:
+    handler: handler.getPost
+    events:
+    - http:
+        path: /post/{id}
+        method: get
+  deletePost:
+    handler: handler.deletePost
+    events:
+    - http:
+        path: /post/{id}
+        method: delete
   # candidateSubmission:
   #   handler: api/candidate.submit
   #   memorySize: 128

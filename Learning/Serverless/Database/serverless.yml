@@ -1,4 +1,4 @@
-service: blogAPI
+service: blogAPIT
 
 app: database-app
 org: harshmohan813
@@ -8,7 +8,7 @@ frameworkVersion: '2'
 
 custom:
   dynamoDB:
-    BLOGS_TABLE: blogsTable
+    BLOGS_TABLE: blogsTableT
 
 provider:
   name: aws
@@ -28,6 +28,7 @@ provider:
         - dynamodb:DescribeItem
         - dynamodb:DeleteItem
         - dynamodb:DescribeTable
+        - dynamodb:UpdateItem
       Resource: "*"
 
 resources:
@@ -92,6 +93,12 @@ functions:
     - http:
         path: /post/{id}
         method: delete
+  updatePost:
+    handler: handler.updatePost
+    events:
+    - http:
+        path: /post/{id}
+        method: put
   # candidateSubmission:
   #   handler: api/candidate.submit
   #   memorySize: 128
@@ -100,27 +107,3 @@ functions:
   #     - http:
   #         path: candidates
   #         method: post
-  # createBlog:
-  #   handler: blog/requests.createBlog
-  #   events:
-  #    - httpApi:
-  #        path: /blog/create
-  #        method: post
-  # deleteBlog:
-  #     handler: blog/requests.deleteBlog
-  #     events:
-  #     - httpApi:
-  #         path: /blog/delete
-  #         method: delete
-  # updateBlog:
-  #   handler: blog/requests.updateBlog
-  #   events:
-  #    - httpApi:
-  #        path: /blog/update
-  #        method: patch
-  # viewBlog:
-  #     handler: blog/requests.viewBlog
-  #     events:
-  #     - httpApi:
-  #         path: /blog/view
-  #         method: get

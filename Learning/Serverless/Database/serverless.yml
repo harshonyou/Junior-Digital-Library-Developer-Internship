@@ -1,0 +1,103 @@
+service: blogAPIT
+
+app: database-app
+org: harshmohan813
+
+frameworkVersion: '2'
+
+custom:
+  dynamoDB:
+    blogsTable : blogsTableT
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: ${opt:stage, 'dev'}
+  lambdaHashingVersion: 20201221
+  region: us-east-1
+  environment:
+    ${self:custom.dynamoDB}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:DescribeItem
+        - dynamodb:DeleteItem
+        - dynamodb:DescribeTable
+        - dynamodb:UpdateItem
+      Resource:
+        - "arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.dynamoDB.blogsTable}"
+
+resources:
+  Resources:
+    CandidatesDynamoDbTable:
+      Type: 'AWS::DynamoDB::Table'
+      DeletionPolicy: Retain
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: PK
+            AttributeType: "S"
+          - AttributeName: SK
+            AttributeType: "S"
+        KeySchema:
+          - AttributeName: PK
+            KeyType: HASH
+          - AttributeName: SK
+            KeyType: RANGE
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:custom.dynamoDB.blogsTable }
+
+functions:
+  createPost:
+    handler: handler.createPost
+    memorySize: 128
+    events:
+    - http:
+        path: /post
+        method: post
+        request:
+            schema:
+              application/json: ${file(createPostSchema.json)}
+  getAllPosts:
+    handler: handler.getAllPosts
+    memorySize: 128
+    events:
+    - http:
+        path: /posts
+        method: get
+  getPosts:
+    handler: handler.getPosts
+    memorySize: 128
+    events:
+    - http:
+        path: /posts/{number}
+        method: get
+  getPost:
+    handler: handler.getPost
+    memorySize: 128
+    events:
+    - http:
+        path: /post/{id}
+        method: get
+  deletePost:
+    handler: handler.deletePost
+    memorySize: 128
+    events:
+    - http:
+        path: /post/{id}
+        method: delete
+  updatePost:
+    handler: handler.updatePost
+    memorySize: 128
+    events:
+    - http:
+        path: /post/{id}
+        method: put
+        request:
+            schema:
+              application/json: ${file(updatePostSchema.json)}

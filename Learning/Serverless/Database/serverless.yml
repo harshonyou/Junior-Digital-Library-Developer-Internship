@@ -2,18 +2,17 @@ service: blogAPIT
 
 app: database-app
 org: harshmohan813
-# stage: dev
 
 frameworkVersion: '2'
 
 custom:
   dynamoDB:
-    BLOGS_TABLE: blogsTableT
+    blogsTable : blogsTableT
 
 provider:
   name: aws
   runtime: nodejs12.x
-  stage: dev
+  stage: ${opt:stage, 'dev'}
   lambdaHashingVersion: 20201221
   region: us-east-1
   environment:
@@ -29,7 +28,8 @@ provider:
         - dynamodb:DeleteItem
         - dynamodb:DescribeTable
         - dynamodb:UpdateItem
-      Resource: "*"
+      Resource:
+        - "arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.dynamoDB.blogsTable}"
 
 resources:
   Resources:
@@ -50,60 +50,54 @@ resources:
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
-        StreamSpecification:
-          StreamViewType: "NEW_AND_OLD_IMAGES"
-        TableName: ${self:custom.dynamoDB.BLOGS_TABLE}
+        TableName: ${self:custom.dynamoDB.blogsTable }
 
 functions:
-  hello:
-    handler: handler.hello
-    memorySize: 128
-    description: Homepage of API.
-    events:
-     - httpApi:
-         path: /
-         method: get
   createPost:
     handler: handler.createPost
+    memorySize: 128
     events:
     - http:
         path: /post
         method: post
+        request:
+            schema:
+              application/json: ${file(createPostSchema.json)}
   getAllPosts:
     handler: handler.getAllPosts
+    memorySize: 128
     events:
     - http:
         path: /posts
         method: get
   getPosts:
     handler: handler.getPosts
+    memorySize: 128
     events:
     - http:
         path: /posts/{number}
         method: get
   getPost:
     handler: handler.getPost
+    memorySize: 128
     events:
     - http:
         path: /post/{id}
         method: get
   deletePost:
     handler: handler.deletePost
+    memorySize: 128
     events:
     - http:
         path: /post/{id}
         method: delete
   updatePost:
     handler: handler.updatePost
+    memorySize: 128
     events:
     - http:
         path: /post/{id}
         method: put
-  # candidateSubmission:
-  #   handler: api/candidate.submit
-  #   memorySize: 128
-  #   description: Submit candidate information and starts interview process.
-  #   events:
-  #     - http:
-  #         path: candidates
-  #         method: post
+        request:
+            schema:
+              application/json: ${file(updatePostSchema.json)}

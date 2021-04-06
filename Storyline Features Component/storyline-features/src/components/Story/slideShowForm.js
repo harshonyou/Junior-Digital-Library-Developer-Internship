@@ -4,8 +4,7 @@ import { UseForm, Form } from '../Hooks/useForm';
 import Controls from '../controls/controls'
 import * as slideShowServices from "../services/slideShowServices";
 
-const initialFieldValues = {
-    // TODO: Remove Extra Bit of Field 
+const initialFieldValues = { 
     advanceFeatures: false,
     advanceAnimationType: "None",
     advanceAnimationSpeed: "0",
@@ -25,7 +24,7 @@ export default function CustomForm() {
 
     const addSlideShowPage = () => {
         const modifyValues = values
-        modifyValues.otherPages.push({id: 0, content: {layout: "", option: ""}})
+        modifyValues.otherPages.push({id: modifyValues.otherPages.length, content: {layout: "", option: ""}})
         setValues({
             ...modifyValues
         })
@@ -34,11 +33,20 @@ export default function CustomForm() {
     const removeSlideShowPage = () => {
         const modifyValues = values
         if(modifyValues.otherPages[1]){
-            modifyValues.otherPages.pop({id: 0, content: {layout: "", option: ""}})
+            modifyValues.otherPages.pop()
             setValues({
                 ...modifyValues
             })
         }
+    }
+
+    const handleSlideShowPageChange = e =>{
+        const {name, value} = e.target
+        const modifyValues = values
+        modifyValues.otherPages[name].content.layout = value
+        setValues({
+            ...modifyValues
+        })
     }
 
     const handleSubmit = (e) => {
@@ -59,10 +67,6 @@ export default function CustomForm() {
                         value={values.advanceFeatures}
                         onChange={handleInputChange}
                     />
-                    {/* TODO: Add Animation Type, Animation Speed */}
-                    {/* Animation Types: None, Ease Out, Ease In, Ease In-Out, Snap, Wind Up */}
-                    {/* Animation Speed: 0-100 in percentage with slider */}
-                    {/* TODO: Add Slider as controls with custom component */}
                     {
                         values.advanceFeatures 
                         ? 
@@ -100,15 +104,24 @@ export default function CustomForm() {
                         onChange={handleInputChange}
                         items={slideShowServices.getCreditPageSlideShowTransitions()}
                     />
-                    { //(<MenuItem key={item.id} value={item.id}>{item.title}</MenuItem>)
+                    {/* <Controls.RadioGroup
+                        name="creditPage"
+                        value={values.creditPage}
+                        onChange={handleInputChange}
+                        items={slideShowServices.getCreditPageSlideShowTransitions()}
+                    /> */}
+                    {
+                        console.log(initialFieldValues.otherPages)
+                    }
+                    {
                         initialFieldValues.otherPages.map(
                             (item, key) => (
                                 <Controls.RadioGroup
-                                    // FIXME: key={item.id}
-                                    name={"otherPage"+key}
+                                    key={item.id}
+                                    name={item.id.toString()}
                                     label={"Page Number "+(key+1)}
-                                    value={values.otherPages}
-                                    onChange={handleInputChange}
+                                    value={values.otherPages[key].content.layout}
+                                    onChange={handleSlideShowPageChange}
                                     items={slideShowServices.getOtherPageSlideShowTransitions()}
                                 />
                             )

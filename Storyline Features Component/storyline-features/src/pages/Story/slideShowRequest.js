@@ -15,7 +15,7 @@ export default function SlideShowRequest() {
 
     return (
         <Paper className={classes.pageContent}> 
-            <SlideShowForm/>
+            <SlideShowForm/> 
         </Paper>
     )
 }

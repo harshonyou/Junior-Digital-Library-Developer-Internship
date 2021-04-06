@@ -6,7 +6,7 @@ import * as slideShowServices from "../services/slideShowServices";
 
 const initialFieldValues = {
     // TODO: Remove Extra Bit of Field 
-    basicOrAdvance: false,
+    advanceFeatures: false,
     homePage: {layout: "", option: ""},
     creditPage: {layout: "", option: ""},
     otherPages: [{id: 0, content: {layout: "", option: ""}}]
@@ -51,11 +51,19 @@ export default function CustomForm() {
             <Grid container>
                 <Grid item xs={12}>
                     <Controls.Checkbox
-                        name="basicOrAdvance"
-                        label="Basic or Advance"
-                        value={values.basicOrAdvance}
+                        name="advanceFeatures"
+                        label="Toggle On"
+                        heading="Advance Features"
+                        value={values.advanceFeatures}
                         onChange={handleInputChange}
                     />
+                    {/* TODO: Add Animation Type, Animation Speed */}
+                    {/* Animation Types: None, Ease Out, Ease In, Ease In-Out, Snap, Wind Up */}
+                    {/* Animation Speed: 0-100 in percentage with slider */}
+                    {/* TODO: Add Slider as controls with custom component */}
+                    {
+                        values.advanceFeatures ? (<>Advance Features Triggered</>) : (<></>)
+                    }
                     <Controls.RadioGroup
                         name="homePage"
                         label="Home Page"

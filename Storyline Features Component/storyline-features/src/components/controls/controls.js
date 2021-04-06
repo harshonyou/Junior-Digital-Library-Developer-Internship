@@ -6,6 +6,7 @@ import Checkbox from "./checkbox"
 import DataPicker from "./datePicker"
 import Button from "./button"
 import AutoComplete from "./autoComplete"
+import Slider from "./slider"
 
 const Controls = {
     InputText,
@@ -15,7 +16,8 @@ const Controls = {
     Checkbox,
     DataPicker,
     Button,
-    AutoComplete
+    AutoComplete,
+    Slider
 }
 
 export default Controls

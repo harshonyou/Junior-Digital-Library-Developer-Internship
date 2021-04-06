@@ -7,6 +7,8 @@ import * as slideShowServices from "../services/slideShowServices";
 const initialFieldValues = {
     // TODO: Remove Extra Bit of Field 
     advanceFeatures: false,
+    advanceAnimationType: "None",
+    advanceAnimationSpeed: "0",
     homePage: {layout: "", option: ""},
     creditPage: {layout: "", option: ""},
     otherPages: [{id: 0, content: {layout: "", option: ""}}]
@@ -62,7 +64,27 @@ export default function CustomForm() {
                     {/* Animation Speed: 0-100 in percentage with slider */}
                     {/* TODO: Add Slider as controls with custom component */}
                     {
-                        values.advanceFeatures ? (<>Advance Features Triggered</>) : (<></>)
+                        values.advanceFeatures 
+                        ? 
+                        (<>
+                            <Controls.Select
+                                name="advanceAnimationType"
+                                label="Animation Type"
+                                value={values.advanceAnimationType}
+                                onChange={handleInputChange}
+                                options={slideShowServices.getAdvanceAnimationType()}
+                                // error={errors.areaOfInterest}
+                            />
+                            {/* FIXME: onChange method is broken for sliders */}
+                            <Controls.Slider
+                                name="advanceAnimationSpeed"
+                                label="Animation Speed"
+                                value={values.advanceAnimationSpeed}
+                                onChange={handleInputChange}
+                            />
+                        </>) 
+                        : 
+                        (<></>)
                     }
                     <Controls.RadioGroup
                         name="homePage"

@@ -52,6 +52,20 @@ export const getOtherPageOptionsSlideShowTransitions = () => ([
     ]},
 ])
 
+export const getAreaOfInterestCollection = () => ([
+    {id: "1", title: "Chronological Order"},
+    {id: "2", title: "3D Render"},
+    {id: "3", title: "Others"},
+])
+
+export const getAdvanceAnimationType = () => ([
+    {id: "1", title: "Ease Out"},
+    {id: "2", title: "Ease In"},
+    {id: "3", title: "Ease In-Out"},
+    {id: "4", title: "Snap"},
+    {id: "5", title: "Wind Up"},
+])
+
 const KEYS = {
     slideShowRequets: "slideShowRequets",
     slideShowRequetId: "slideShowRequetId"

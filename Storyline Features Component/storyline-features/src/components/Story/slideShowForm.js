@@ -49,6 +49,15 @@ export default function CustomForm() {
         })
     }
 
+    const handleSlideShowPageOptionChange = e =>{
+        const {name, value} = e.target
+        const modifyValues = values
+        modifyValues.otherPages[name].content.option = value
+        setValues({
+            ...modifyValues
+        })
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault()
         slideShowServices.insertSlideShowRequest(values)
@@ -108,14 +117,18 @@ export default function CustomForm() {
                         name="creditPage"
                         value={values.creditPage}
                         onChange={handleInputChange}
-                        items={slideShowServices.getCreditPageSlideShowTransitions()}
+                        items={slideShowServices.getOtherPageOptionsSlideShowTransitions()[0].options}
                     /> */}
                     {
-                        console.log(initialFieldValues.otherPages)
+                        console.log(slideShowServices.getCreditPageSlideShowTransitions())
+                    }
+                    {
+                        console.log(slideShowServices.getOtherPageOptionsSlideShowTransitions()[0].options)
                     }
                     {
                         initialFieldValues.otherPages.map(
                             (item, key) => (
+                                <>
                                 <Controls.RadioGroup
                                     key={item.id}
                                     name={item.id.toString()}
@@ -124,6 +137,17 @@ export default function CustomForm() {
                                     onChange={handleSlideShowPageChange}
                                     items={slideShowServices.getOtherPageSlideShowTransitions()}
                                 />
+                                {
+                                    item.content.layout == "" ? "" : (
+                                        <Controls.RadioGroup
+                                            name={item.id.toString()}
+                                            value={values.otherPages[key].content.option}
+                                            onChange={handleSlideShowPageOptionChange}
+                                            items={slideShowServices.getOtherPageOptionsSlideShowTransitions()[item.content.layout-1].options}
+                                        />
+                                    )
+                                }
+                                </>
                             )
                         )
                     }
@@ -146,6 +170,7 @@ export default function CustomForm() {
                         <Controls.Button
                             color="default"
                             text="Reset" 
+                            // FIXME: reset form does not reset otherPages component
                             onClick={resetForm} />
                     </div>
                 </Grid>

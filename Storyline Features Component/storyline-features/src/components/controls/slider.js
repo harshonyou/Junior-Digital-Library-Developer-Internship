@@ -16,7 +16,7 @@ export default function slider(props) {
 
     return (
         <>
-        <Typography gutterBottom>{label}</Typography>
+        <Typography variant="body2" gutterBottom>{label}</Typography>
         <Slider
             ValueLabelComponent={ValueLabelComponent}
             name={name}

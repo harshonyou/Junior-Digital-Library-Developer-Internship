@@ -1,4 +1,4 @@
-import { Grid } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import React, {useState, useEffect} from 'react'
 import { UseForm, Form } from '../Hooks/useForm';
 import Controls from '../controls/controls'
@@ -40,6 +40,12 @@ export default function CustomForm() {
         }
     }
 
+    const handleSlider = e =>{
+        const {name, value} = e.target
+        // TODO: Create Slider onChange Handler
+        // console.log(e.target)
+    }
+
     const handleSlideShowPageChange = e =>{
         const {name, value} = e.target
         const modifyValues = values
@@ -49,7 +55,7 @@ export default function CustomForm() {
         })
     }
 
-    const handleSlideShowPageOptionChange = e =>{
+    const handleSlideShowPageOptionChange = (e) =>{
         const {name, value} = e.target
         const modifyValues = values
         modifyValues.otherPages[name].content.option = value
@@ -93,7 +99,7 @@ export default function CustomForm() {
                                 name="advanceAnimationSpeed"
                                 label="Animation Speed"
                                 value={values.advanceAnimationSpeed}
-                                onChange={handleInputChange}
+                                onChange={handleSlider}
                             />
                         </>) 
                         : 
@@ -113,18 +119,6 @@ export default function CustomForm() {
                         onChange={handleInputChange}
                         items={slideShowServices.getCreditPageSlideShowTransitions()}
                     />
-                    {/* <Controls.RadioGroup
-                        name="creditPage"
-                        value={values.creditPage}
-                        onChange={handleInputChange}
-                        items={slideShowServices.getOtherPageOptionsSlideShowTransitions()[0].options}
-                    /> */}
-                    {
-                        console.log(slideShowServices.getCreditPageSlideShowTransitions())
-                    }
-                    {
-                        console.log(slideShowServices.getOtherPageOptionsSlideShowTransitions()[0].options)
-                    }
                     {
                         initialFieldValues.otherPages.map(
                             (item, key) => (
@@ -135,16 +129,34 @@ export default function CustomForm() {
                                     label={"Page Number "+(key+1)}
                                     value={values.otherPages[key].content.layout}
                                     onChange={handleSlideShowPageChange}
-                                    items={slideShowServices.getOtherPageSlideShowTransitions()}
+                                    items={slideShowServices.getOtherPageSlideShowTransitions()} 
                                 />
                                 {
                                     item.content.layout == "" ? "" : (
-                                        <Controls.RadioGroup
-                                            name={item.id.toString()}
-                                            value={values.otherPages[key].content.option}
-                                            onChange={handleSlideShowPageOptionChange}
-                                            items={slideShowServices.getOtherPageOptionsSlideShowTransitions()[item.content.layout-1].options}
-                                        />
+                                        <Grid container justify="center">
+                                            <Controls.RadioGroup
+                                                name={item.id.toString()}
+                                                label="Options"
+                                                value={values.otherPages[key].content.option}
+                                                onChange={handleSlideShowPageOptionChange}
+                                                items={slideShowServices.getOtherPageOptionsSlideShowTransitions()[item.content.layout-1].options}
+                                            />
+
+                                            <Controls.InputText 
+                                                name={item.id.toString()}
+                                                label="Image"
+                                                // value={values.noOfPages}
+                                                // onChange={handleInputChange}
+                                                // error={errors.noOfPages}
+                                            />
+                                            <Controls.InputTextArea 
+                                                name={item.id.toString()}
+                                                label="Text"
+                                                // value={values.ideaBrief}
+                                                // onChange={handleInputChange}
+                                                // error={errors.ideaBrief}
+                                            />
+                                        </Grid>
                                     )
                                 }
                                 </>
@@ -171,7 +183,12 @@ export default function CustomForm() {
                             color="default"
                             text="Reset" 
                             // FIXME: reset form does not reset otherPages component
-                            onClick={resetForm} />
+                            onClick={()=> {
+                                console.log(initialFieldValues)
+                                setValues({
+                                    ...initialFieldValues
+                                })
+                            }} />
                     </div>
                 </Grid>
             </Grid>

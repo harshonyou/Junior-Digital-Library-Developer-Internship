@@ -7,8 +7,40 @@ class SimpleImage {
         };
     }
 
-    constructor({data}){
-        this.data = data;
+    static get pasteConfig() {
+        return {
+            tags: ['IMG'],
+            files: {
+                mimeTypes: ['image/*'],
+                extensions: ['gif', 'jpg', 'png'] 
+            },
+            patterns: {
+                image: /https?:\/\/\S+\.(gif|jpe?g|tiff|png)$/i
+            }
+        }
+    }
+
+    /**
+   * Automatic sanitize config
+   */
+    static get sanitize(){
+        return {
+            url: false, // disallow HTML
+            caption: {} // only tags from Inline Toolbar 
+        }
+    }
+
+
+    constructor({data, api, config}){
+        this.api = api;
+        this.config = config || {};
+        this.data = {
+            url: data.url || '',
+            caption: data.caption || '',
+            withBorder: data.withBorder !== undefined ? data.withBorder : false,
+            withBackground: data.withBackground !== undefined ? data.withBackground : false,
+            stretched: data.stretched !== undefined ? data.stretched : false,
+        };
         this.wrapper = undefined;
         this.settings = [
             {
@@ -37,7 +69,7 @@ class SimpleImage {
 
         const input = document.createElement('input');
 
-        input.placeholder = "Paste an image URL";
+        input.placeholder = this.api.i18n.t(this.config.placeholder || 'Paste an image URL...');
         input.addEventListener('paste', (event) => {
             this._createImage(event.clipboardData.getData('text'));
         });
@@ -59,16 +91,26 @@ class SimpleImage {
         this.wrapper.innerHTML = '';
         this.wrapper.appendChild(image);
         this.wrapper.appendChild(caption);
+
+        this._acceptTuneView();
     }
 
     save(blockContent){
         const image = blockContent.querySelector('img');
         const caption = blockContent.querySelector('[contenteditable]');
+        const sanitizerConfig = {
+            b: true, 
+            a: {
+                href: true
+            },
+            i: true
+        };
 
-        return {
+        return Object.assign(this.data, {
             url: image.src,
+            // caption: this.api.sanitizer.clean(caption.innerHTML || '', sanitizerConfig),
             caption: caption.innerHTML || ''
-        }
+        });
     }
 
     validate(savedData){
@@ -85,13 +127,14 @@ class SimpleImage {
         this.settings.forEach( tune => {
             let button = document.createElement('div');
 
-            button.classList.add('cdx-settings-button');
+            button.classList.add(this.api.styles.settingsButton);
+            button.classList.toggle(this.api.styles.settingsButtonActive, this.data[tune.name]);
             button.innerHTML = tune.icon;
             wrapper.appendChild(button);
 
             button.addEventListener('click', () => {
                 this._toggleTune(tune.name);
-                button.classList.toggle('cdx-settings-button--active');
+                button.classList.toggle(this.api.styles.settingsButtonActive);
             });
         });
     
@@ -104,7 +147,47 @@ class SimpleImage {
    * @param {string} tune — tune name from this.settings
    */
     _toggleTune(tune) {
-        console.log('Image tune clicked', tune);
+        this.data[tune] = !this.data[tune];
+        this._acceptTuneView();
     }
-    
+
+    /**
+   * Add specified class corresponds with activated tunes
+   * @private
+   */
+    _acceptTuneView() {
+        this.settings.forEach( tune => {
+            this.wrapper.classList.toggle(tune.name, !!this.data[tune.name]);
+
+            if (tune.name === 'stretched') {
+                this.api.blocks.stretchBlock(this.api.blocks.getCurrentBlockIndex(), !!this.data.stretched);
+            }
+        });
+    }
+
+    onPaste(event){
+        switch (event.type){
+            case 'tag':
+                const imgTag = event.detail.data;
+
+                this._createImage(imgTag.src);
+                break;
+            case 'tag':
+                const file = event.detail.file;
+                const reader = new FileReader();
+
+                reader.onload = (loadEvent) => {
+                this._createImage(loadEvent.target.result);
+                };
+
+                reader.readAsDataURL(file);
+                break;
+            case 'pattern':
+                const src = event.detail.data;
+        
+                this._createImage(src);
+                break;
+        }
+    }
+
 }

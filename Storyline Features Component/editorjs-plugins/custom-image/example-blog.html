@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link href="example-blog.css" rel="stylesheet"/>
+
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/paragraph@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/quote@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/warning@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/delimiter@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/checklist@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/simple-image@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/link@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/embed@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/table@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/code@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/raw@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/inline-code@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/editorjs-undo@0.1.5/dist/bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/editorjs-drag-drop@0.1.1/dist/bundle.min.js"></script>
+
+    <script src="bundle.js"></script>
+
+    <script src="simple-image.js"></script>
+    <link href="simple-image.css" rel="stylesheet"/>
+    <script src="text-over-image.js"></script>
+    <link href="text-over-image.css" rel="stylesheet"/>
+
+
+
+
+
+</head>
+
+<body>
+    <div id="editorjs"></div>
+
+    <div id="buttons">
+        <button id="save-button" type="button" class="btn btn-primary">Save</button>
+        <button id="addBlock" type="button" class="btn btn-secondary">Add Block</button>
+    </div>
+
+    <div id="display">
+        <pre id="output"></pre>
+    </div>
+</body>
+
+<script>
+    const editor = new EditorJS({
+        autofocus: true,
+        onReady: () => {
+            new Undo({ editor });
+            new DragDrop(editor);
+        },
+        tools: {
+            header: {
+                class: Header,
+                inlineToolbar: true
+            },
+            paragraph: {
+                class: Paragraph,
+                inlineToolbar: true,
+            },
+            quote: Quote,
+            delimiter: Delimiter,
+            warning: Warning,
+            checklist: {
+                class: Checklist,
+                inlineToolbar: true,
+            },
+            list: {
+                class: List,
+                inlineToolbar: true,
+            },
+            embed: Embed,
+            linkTool: LinkTool,
+            image: SimpleImage,
+            raw: RawTool,
+            code: CodeTool,
+            table: {
+                class: Table,
+            },
+            inlineCode: {
+                class: InlineCode,
+                shortcut: 'CMD+SHIFT+M',
+            },
+            markdownParser: MDParser,
+            markdownImporter: MDImporter,
+            // TextOverImage2: TextOverImage2
+        },
+        onChange: ()=>{
+            const output = document.getElementById('output');
+            editor.save().then( savedData => {
+                output.innerHTML = JSON.stringify(savedData, null, 4);
+            })
+        }
+    }
+    );
+
+    const saveButton = document.getElementById('save-button');
+    const output = document.getElementById('output');
+
+    saveButton.addEventListener('click', () => {
+    editor.save().then( savedData => {
+        output.innerHTML = JSON.stringify(savedData, null, 4);
+    })
+    })
+
+    const addBlock = document.getElementById('addBlock');
+
+    addBlock.addEventListener('click', () => {
+        editor.blocks.insert(type="textOverImage", needToFocus=true);
+    })
+</script>
+</html>

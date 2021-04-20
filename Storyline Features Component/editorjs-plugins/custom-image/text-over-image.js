@@ -12,20 +12,26 @@ class TextOverImage{
             url: data.url || '',
             caption: data.caption || '',
             alt: data.alt || '',
-            left: data.left !== undefined ? data.left : false,
+            left: data.left !== undefined ? data.left : true,
             right: data.right !== undefined ? data.right : false,
+            toggle: data.toggle !== undefined ? data.toggle: false
         };
         this.wrapper = undefined;
         this.settings = [
+            // {
+            //     name: 'left',
+            //     icon: `
+            //     <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M11 9l1.42 1.42L8.83 14H18V4h2v12H8.83l3.59 3.58L11 21l-6-6 6-6z"/></svg>`
+            // },
+            // {
+            //     name: 'right',
+            //     icon: `
+            //     <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M24 24H0V0h24v24z" fill="none" opacity=".87"/><path d="M19 15l-6 6-1.42-1.42L15.17 16H4V4h2v10h9.17l-3.59-3.58L13 9l6 6z"/></svg>`
+            // },
             {
-                name: 'left',
+                name: 'toggle',
                 icon: `
-                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M11 9l1.42 1.42L8.83 14H18V4h2v12H8.83l3.59 3.58L11 21l-6-6 6-6z"/></svg>`
-            },
-            {
-                name: 'right',
-                icon: `
-                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M24 24H0V0h24v24z" fill="none" opacity=".87"/><path d="M19 15l-6 6-1.42-1.42L15.17 16H4V4h2v10h9.17l-3.59-3.58L13 9l6 6z"/></svg>`
+                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>`
             }
             ];
     }
@@ -46,24 +52,21 @@ class TextOverImage{
         this._createImage(event.clipboardData.getData('text'));
         });
 
-        const alt = document.createElement('input');
-        alt.placeholder = 'Alt';
-
         this.wrapper.appendChild(input);
-        this.wrapper.appendChild(alt);
 
         return this.wrapper;
     }
 
     _createImage(url, captionText){
         const container = document.createElement('div')
-        const image = document.createElement('img');
         
+        const image = document.createElement('img');
         const text = document.createElement('div')
 
         const caption = document.createElement('input');
 
         image.src = url;
+        
         caption.placeholder = 'Caption...';
         caption.value = captionText || '';
 
@@ -72,7 +75,6 @@ class TextOverImage{
         text.classList.add('input');
         text.contentEditable = true;
         text.innerHTML = captionText || '';
-        text.placeholder = "Description"
 
         container.appendChild(image)
         container.appendChild(text)
@@ -84,11 +86,11 @@ class TextOverImage{
 
     save(blockContent){
         const image = blockContent.querySelector('img');
-        const caption = blockContent.querySelector('input');
+        const alt = blockContent.querySelector('[contenteditable]');
 
         return Object.assign(this.data, {
         url: image.src,
-        caption: caption.value
+        alt: alt.innerHTML || ''
         })
     }
 
@@ -108,6 +110,7 @@ class TextOverImage{
             let button = document.createElement('div');
 
             button.classList.add('cdx-settings-button');
+            button.classList.toggle('cdx-settings-button--active', this.data[tune.name]);
             button.innerHTML = tune.icon;
             wrapper.appendChild(button);
 
@@ -122,12 +125,14 @@ class TextOverImage{
 
     _toggleTune(tune) {
         this.data[tune] = !this.data[tune];
+        this.data.left = !this.data.left;
+        this.data.right = !this.data.right;
         this._acceptTuneView();
     }
 
     _acceptTuneView() {
         this.settings.forEach( tune => {
-        this.wrapper.classList.toggle(tune.name, !!this.data[tune.name]);
+            this.wrapper.classList.toggle(tune.name, !!this.data[tune.name]);
         });
     }
 

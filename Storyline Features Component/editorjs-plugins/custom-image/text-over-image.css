@@ -14,7 +14,8 @@
 .text-over-image img {
     max-width: 50%;
     margin-bottom: 15px;
-    float: right;
+    float: left;
+    margin-right: 10px;
 }
 
 .container .input {
@@ -25,20 +26,19 @@
     outline: none;
     font-size: 14px;
     border-bottom: 1px solid #f44336;
-    max-width: 90%;
     /* max-width: 50%; */
     /* position: absolute;
     left: 0;
     top: 50%; */
 }
 
-.text-over-image.right img {
+.text-over-image.toggle img {
     max-width: 50%;
     margin-bottom: 15px;
     float: right;
 }
 
-.container.right .input {
+.container.toggle .input {
     width: 100%;
     padding: 10px;
     /* border: 1px solid #e4e4e4; */

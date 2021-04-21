@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Blog Request</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
@@ -19,7 +19,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/delimiter@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/checklist@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/simple-image@latest"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/@editorjs/simple-image@latest"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/link@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/embed@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/table@latest"></script>
@@ -28,6 +28,8 @@
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/inline-code@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/editorjs-undo@0.1.5/dist/bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/editorjs-drag-drop@0.1.1/dist/bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/editorjs-text-alignment-blocktune@1.0.1/dist/bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-image-editorjs@1.4.0/dist/bundle.min.js"></script>
 
     <script src="bundle.js"></script>
 
@@ -36,6 +38,8 @@
     <script src="text-over-image.js"></script>
     <link href="text-over-image.css" rel="stylesheet"/>
 
+    <script src="data-blog-filled.js"></script>
+    <script src="data-blog-general.js"></script>
 
 
 
@@ -48,6 +52,8 @@
     <div id="buttons">
         <button id="save-button" type="button" class="btn btn-primary">Save</button>
         <button id="addBlock" type="button" class="btn btn-secondary">Add Block</button>
+        <button id="preview" type="button" class="btn btn-warning">Preview</button>
+        <button id="clear" type="button" class="btn btn-danger">Clear</button>
     </div>
 
     <div id="display">
@@ -56,6 +62,9 @@
 </body>
 
 <script>
+    DATA = data_blog_general
+    // DATA = data_blog_filled
+    // DATA = {}
     const editor = new EditorJS({
         autofocus: true,
         onReady: () => {
@@ -65,11 +74,13 @@
         tools: {
             header: {
                 class: Header,
-                inlineToolbar: true
+                inlineToolbar: true,
+                tunes: ['anyTuneName'],
             },
             paragraph: {
                 class: Paragraph,
                 inlineToolbar: true,
+                tunes: ['anyTuneName'],
             },
             quote: Quote,
             delimiter: Delimiter,
@@ -94,8 +105,18 @@
                 class: InlineCode,
                 shortcut: 'CMD+SHIFT+M',
             },
-            markdownParser: MDParser,
-            markdownImporter: MDImporter,
+            // markdownParser: MDParser,
+            // markdownImporter: MDImporter,
+            anyTuneName: {
+                class:AlignmentBlockTune,
+                config:{
+                    default: "left",
+                    blocks: {
+                    header: 'center',
+                    list: 'right'
+                    }
+                },
+            },
             // TextOverImage2: TextOverImage2
         },
         onChange: ()=>{
@@ -103,7 +124,8 @@
             editor.save().then( savedData => {
                 output.innerHTML = JSON.stringify(savedData, null, 4);
             })
-        }
+        },
+        data: DATA
     }
     );
 
@@ -120,6 +142,12 @@
 
     addBlock.addEventListener('click', () => {
         editor.blocks.insert(type="textOverImage", needToFocus=true);
+    })
+
+    const clear = document.getElementById('clear');
+
+    clear.addEventListener('click', () => {
+        editor.blocks.clear();
     })
 </script>
 </html>

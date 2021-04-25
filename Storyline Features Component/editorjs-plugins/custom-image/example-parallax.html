@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parallax Request</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link href="example-parallax.css" rel="stylesheet"/>
+
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
+    <script src="simple-image.js"></script>
+    <link href="simple-image.css" rel="stylesheet"/>
+    <script src="text-over-image.js"></script>
+    <link href="text-over-image.css" rel="stylesheet"/>
+
+    <script src="https://cdn.jsdelivr.net/npm/editorjs-drag-drop@0.1.1/dist/bundle.min.js"></script>
+
+    <script src="data-parallax.js"></script>
+</head>
+
+<body>
+    <div id="editorjs"></div>
+
+    <div id="buttons">
+        <button id="save-button" type="button" class="btn btn-primary">Save</button>
+        <input id="number" type="number" class="form-control" placeholder="Number">
+        <button id="addBlock" type="button" class="btn btn-secondary">Add Block</button>
+        <button id="clear" type="button" class="btn btn-danger">Clear</button>
+    </div>
+
+    <div id="display">
+        <pre id="output"></pre>
+    </div>
+</body>
+
+<script>
+
+    DATA = data_parallax
+    // DATA={}
+
+    const editor = new EditorJS({
+        autofocus: true,
+        onReady: () => {
+            new DragDrop(editor);
+        },
+        tools: {
+            header: {
+                class: Header,
+                inlineToolbar: true
+            },
+            image: {
+                class: SimpleImage,
+                inlineToolbar: true
+            },
+            textOverImage: {
+                class: TextOverImage,
+                inlineToolbar : true
+            },
+            // TextOverImage2: TextOverImage2
+        },
+        data: DATA,
+        onChange: ()=>{
+            const output = document.getElementById('output');
+            editor.save().then( savedData => {
+                output.innerHTML = JSON.stringify(savedData, null, 4);
+            })
+        },
+        // defaultBlock: "textOverImage",
+    }
+    );
+
+    const saveButton = document.getElementById('save-button');
+    const output = document.getElementById('output');
+
+    saveButton.addEventListener('click', () => {
+    editor.save().then( savedData => {
+        output.innerHTML = JSON.stringify(savedData, null, 4);
+    })
+    })
+
+    const addBlock = document.getElementById('addBlock');
+
+    addBlock.addEventListener('click', () => {
+        let number = document.getElementById('number');
+        if(number.value===""){
+            editor.blocks.insert("textOverImage", true);
+        }
+            
+        else{
+            if(!parseInt(number.value)<1){
+                for(let i=0; i<parseInt(number.value); i++){
+                    editor.blocks.insert(type="textOverImage", {toggle: (i%2==0)}, needToFocus=true);
+                }
+            }
+        }
+    })
+
+    const clear = document.getElementById('clear');
+
+    clear.addEventListener('click', () => {
+        editor.blocks.clear();
+    })
+    
+</script>
+</html>
